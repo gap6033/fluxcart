@@ -13,7 +13,7 @@ class ContactService:
         if email:
             contact_by_email = Contact.objects.filter(email = email).first()
         if phone:
-            contact_by_phone = Contact.objects.filter(phone = phone).first()
+            contact_by_phone = Contact.objects.filter(phoneNumber = phone).first()
 
         if not contact_by_email and not contact_by_phone:
             primary_contact = Contact.objects.create(email = email, phone = phone)
