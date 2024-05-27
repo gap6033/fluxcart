@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 django = "==5.0.6"
 django-rest-framework = "*"
+psycopg2-binary = "*"
+dj-database-url = "*"
+gunicorn = "*"
+uvicorn = "*"
 
 [dev-packages]
 
