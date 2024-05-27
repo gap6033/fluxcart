@@ -54,4 +54,29 @@ class ContactService:
         for contact in contacts:
             contact.linkedId = primary_contact.id
             contact.save()
-            
+
+    @staticmethod
+    def get_all_connected_contacts(primary_contact: Contact):
+        secondary_contacts = Contact.objects.filter(linkedId = primary_contact.id)
+        emails = []
+        if primary_contact.email:
+            emails.append(primary_contact.email)
+        phones = [primary_contact.phoneNumber]
+        if primary_contact.phoneNumber:
+            phones.append(primary_contact.phoneNumber)
+        secondary_contact_ids = []
+        for contact in secondary_contacts:
+            if contact.email:
+                emails.append(contact.email)
+            if contact.phoneNumber:
+                phones.append(contact.phoneNumber)
+            secondary_contact_ids.append(contact.id)
+        output = 	{
+		"contact":{
+			"primaryContatctId": primary_contact.id,
+			"emails": emails, 
+			"phoneNumbers": phones,
+			"secondaryContactIds":secondary_contact_ids
+		    }
+	    }
+        return output
