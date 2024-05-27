@@ -11,12 +11,12 @@ class ContactSeriazlizer(serializers.ModelSerializer):
         data = {key: value.strip() if isinstance(value, str) else value for key, value in data.items()}
         return super().to_internal_value(data)
 
-    def validate(self, data):
-        if not 'email' in data or not 'phoneNumber' in data:
-            raise serializers.ValidationError("email and/or phoneNumber missing as input")
-        if not data['email'] and not data['phoneNumber']:
-            raise serializers.ValidationError("Both email and phoneNumber values cannot be empty")
-        return data
+    def validate(self, attrs):
+        email = attrs.get('email')
+        phoneNumber = attrs.get('phoneNumber')
+        if not email and not phoneNumber:
+            raise serializers.ValidationError("Both email and phoneNumber cannot be missing/null as input")
+        return attrs
 
     def create(self, validated_data):
         return ContactService.create_contact(validated_data)
