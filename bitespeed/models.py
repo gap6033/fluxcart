@@ -12,7 +12,7 @@ class Contact(models.Model):
     ]
 
     email = models.EmailField(blank=True, null=True, db_index=True)
-    phone_number = models.CharField(max_length=30, blank=True, null=True, db_index=True)
+    phone = models.CharField(max_length=30, blank=True, null=True, db_index=True)
     linkedId = models.IntegerField(null=True)
     linkPrecedence = models.CharField(max_length=256, choices=CONTACT_TYPE, default=PRIMARY)
     created_at = models.DateTimeField(auto_now_add=True)
