@@ -1,8 +1,10 @@
 from .models import Contact
+from django.db import transaction
 
 class ContactService:
 
     @staticmethod
+    @transaction.atomic
     def create_contact(validated_data: dict):
         email = validated_data.get('email')
         phone = validated_data.get('phoneNumber')
