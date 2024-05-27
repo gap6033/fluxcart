@@ -61,7 +61,7 @@ class ContactService:
         emails = []
         if primary_contact.email:
             emails.append(primary_contact.email)
-        phones = [primary_contact.phoneNumber]
+        phones = []
         if primary_contact.phoneNumber:
             phones.append(primary_contact.phoneNumber)
         secondary_contact_ids = []
