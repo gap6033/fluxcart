@@ -7,6 +7,10 @@ class ContactSeriazlizer(serializers.ModelSerializer):
         model = Contact
         fields = ['email', 'phoneNumber']
 
+    def to_internal_value(self, data):
+        data = {key: value.strip() if isinstance(value, str) else value for key, value in data.items()}
+        return super().to_internal_value(data)
+
     def validate(self, data):
         if not 'email' in data or not 'phoneNumber' in data:
             raise serializers.ValidationError("email and/or phoneNumber missing as input")
