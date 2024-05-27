@@ -19,11 +19,11 @@ class ContactService:
             primary_contact = Contact.objects.create(email = email, phoneNumber = phone)
         elif not contact_by_phone:
             primary_contact_by_email = ContactService.get_primary_contact(contact_by_email)
-            Contact.objects.create(email = email, phoneNumber = phone, linkedId = primary_contact_by_email.id, linkedPreference = Contact.SECONDARY)
+            Contact.objects.create(email = email, phoneNumber = phone, linkedId = primary_contact_by_email.id, linkPrecedence = Contact.SECONDARY)
             primary_contact = primary_contact_by_phone
         elif not contact_by_email:
             primary_contact_by_phone = ContactService.get_primary_contact(contact_by_phone)
-            Contact.objects.create(email = email, phoneNumber = phone, linkedId = primary_contact_by_phone.id, linkedPreference = Contact.SECONDARY)
+            Contact.objects.create(email = email, phoneNumber = phone, linkedId = primary_contact_by_phone.id, linkPrecedence = Contact.SECONDARY)
             primary_contact = primary_contact_by_phone
         else:
             primary_contact_by_email = ContactService.get_primary_contact(contact_by_email)
