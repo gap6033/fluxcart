@@ -14,8 +14,12 @@ class ContactService:
         contact_by_phone = None
         if email:
             contact_by_email = Contact.objects.filter(email = email).first()
+            if not phone:
+                return ContactService.get_primary_contact(contact_by_email)
         if phone:
             contact_by_phone = Contact.objects.filter(phoneNumber = phone).first()
+            if not email:
+                return ContactService.get_primary_contact(contact_by_phone)
 
         if not contact_by_email and not contact_by_phone:
             primary_contact = Contact.objects.create(email = email, phoneNumber = phone)
