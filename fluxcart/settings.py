@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-&(=1+cq_+@5!po)rp-3*5o&(v!$ewf-r3^g(&h=@n(to3_qfh-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['fluxcart-eesk.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['fluxcart-eesk.onrender.com']
 
 
 # Application definition
