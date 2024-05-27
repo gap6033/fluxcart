@@ -8,8 +8,10 @@ class ContactSeriazlizer(serializers.ModelSerializer):
         fields = ['email', 'phoneNumber']
 
     def validate(self, data):
+        if not 'email' in data or not 'phoneNumber' in data:
+            raise serializers.ValidationError("email and/or phoneNumber missing as input")
         if not data['email'] and not data['phoneNumber']:
-            raise serializers.ValidationError("At least email or phoneNumber has to be provided")
+            raise serializers.ValidationError("Both email and phoneNumber values cannot be empty")
         return data
 
     def create(self, validated_data):
