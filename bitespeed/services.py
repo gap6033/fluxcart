@@ -16,14 +16,14 @@ class ContactService:
             contact_by_phone = Contact.objects.filter(phoneNumber = phone).first()
 
         if not contact_by_email and not contact_by_phone:
-            primary_contact = Contact.objects.create(email = email, phone = phone)
+            primary_contact = Contact.objects.create(email = email, phoneNumber = phone)
         elif not contact_by_phone:
             primary_contact_by_email = ContactService.get_primary_contact(contact_by_email)
-            Contact.objects.create(email = email, phone = phone, linkedId = primary_contact_by_email.id, linkedPreference = Contact.SECONDARY)
+            Contact.objects.create(email = email, phoneNumber = phone, linkedId = primary_contact_by_email.id, linkedPreference = Contact.SECONDARY)
             primary_contact = primary_contact_by_phone
         elif not contact_by_email:
             primary_contact_by_phone = ContactService.get_primary_contact(contact_by_phone)
-            Contact.objects.create(email = email, phone = phone, linkedId = primary_contact_by_phone.id, linkedPreference = Contact.SECONDARY)
+            Contact.objects.create(email = email, phoneNumber = phone, linkedId = primary_contact_by_phone.id, linkedPreference = Contact.SECONDARY)
             primary_contact = primary_contact_by_phone
         else:
             primary_contact_by_email = ContactService.get_primary_contact(contact_by_email)
