@@ -56,7 +56,8 @@ class ContactService:
         for contact in contacts:
             contact.linkedId = primary_contact.id
             contact.save()
-
+        return primary_contact
+    
     @staticmethod
     def get_all_connected_contacts(primary_contact: Contact):
         secondary_contacts = Contact.objects.filter(linkedId = primary_contact.id)
