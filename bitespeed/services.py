@@ -14,11 +14,11 @@ class ContactService:
         contact_by_phone = None
         if email:
             contact_by_email = Contact.objects.filter(email = email).first()
-            if not phone:
+            if contact_by_email and not phone:
                 return ContactService.get_primary_contact(contact_by_email)
         if phone:
             contact_by_phone = Contact.objects.filter(phoneNumber = phone).first()
-            if not email:
+            if contact_by_phone and not email:
                 return ContactService.get_primary_contact(contact_by_phone)
 
         if not contact_by_email and not contact_by_phone:
@@ -65,24 +65,24 @@ class ContactService:
     @staticmethod
     def get_all_connected_contacts(primary_contact: Contact):
         secondary_contacts = Contact.objects.filter(linkedId = primary_contact.id)
-        emails = []
+        emails = set()
         if primary_contact.email:
-            emails.append(primary_contact.email)
-        phones = []
+            emails.add(primary_contact.email)
+        phones = set()
         if primary_contact.phoneNumber:
-            phones.append(primary_contact.phoneNumber)
+            phones.add(primary_contact.phoneNumber)
         secondary_contact_ids = []
         for contact in secondary_contacts:
             if contact.email:
-                emails.append(contact.email)
+                emails.add(contact.email)
             if contact.phoneNumber:
-                phones.append(contact.phoneNumber)
+                phones.add(contact.phoneNumber)
             secondary_contact_ids.append(contact.id)
         output = 	{
 		"contact":{
 			"primaryContatctId": primary_contact.id,
-			"emails": emails, 
-			"phoneNumbers": phones,
+			"emails": list(emails), 
+			"phoneNumbers": list(phones),
 			"secondaryContactIds":secondary_contact_ids
 		    }
 	    }
